@@ -1,5 +1,5 @@
 import Link from "next/link"
-
+import { ShoppingCartPanel } from "./_components/shopping-cart-panel"
 export function Navbar() {
     return (
         <header>
@@ -11,7 +11,10 @@ export function Navbar() {
                 <Link href={"/shop"} className="text-sm hover:underline">
                     Shop
                 </Link>
+
+                <ShoppingCartPanel />
             </nav>
         </header>
     )
 }
+

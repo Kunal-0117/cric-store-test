@@ -2,19 +2,46 @@
 
 import { createContext, useContext, useState } from 'react'
 import { createStore, useStore as useZustandStore } from 'zustand'
+import { immer } from 'zustand/middleware/immer'
 const StoreContext = createContext(null)
 
-export const StoreProvider = ({ children, initialBears }) => {
+export const StoreProvider = ({ children }) => {
     const [store] = useState(() =>
-        createStore((set) => ({
-            bears: initialBears,
+        createStore(immer((set) => ({
+
+            cart: {},
             actions: {
-                increasePopulation: (by) =>
-                    set((state) => ({ bears: state.bears + by })),
-                removeAllBears: () => set({ bears: 0 }),
+                addItem: (item) => {
+                    set((state) => {
+                        const id = item.id;
+                        state.cart[id] = {
+                            ...item,
+                            count: 1
+                        }
+                    })
+                },
+                incrementItem: (id) => {
+                    set((state) => {
+                        state.cart[id].count += 1;
+                    })
+                },
+
+                decrementItem: (id) => {
+                    set((state) => {
+                        state.cart[id].count -= 1;
+                        if (state.cart[id].count <= 1) {
+                            delete state.cart[id];
+                        }
+                    })
+                },
+                removeItem: (id) => {
+                    set(state => {
+                        delete state.cart[id];
+                    })
+                }
             },
-        }))
-    )
+
+        }))))
 
     return (
         <StoreContext.Provider value={store}>
