@@ -10,7 +10,7 @@ export function AddProductButton({ product }) {
         <div>
             {
                 !hasItem ?
-                    <Button Button onClick={addItemAction.bind(null, product)}>
+                    <Button onClick={addItemAction.bind(null, product)}>
                         + Add to Cart
                     </Button>
                     :
