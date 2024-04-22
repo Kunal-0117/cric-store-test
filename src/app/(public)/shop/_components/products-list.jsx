@@ -67,6 +67,7 @@ function ProductCard({ data }) {
         <div className="rounded-xl flex flex-col shadow-md overflow-hidden max-w-xs mx-auto">
             <div className="w-full h-48">
                 <img
+                    alt={data.title}
                     className="w-full h-full object-cover"
                     src={data.thumbnail}
                 />

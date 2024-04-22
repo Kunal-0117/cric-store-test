@@ -2,6 +2,7 @@ import { makeRequest } from "@/lib/fetch"
 import { ProductCategories } from "./_components/product-categories/product-categories";
 import { ProductsList } from "./_components/products-list";
 import { FilterProducts } from "./_components/filter-products";
+import { Suspense } from "react";
 
 async function getProducts({ category, search }) {
     if (search) {
@@ -28,7 +29,9 @@ export default async function ShopPage({ searchParams }) {
             </div>
             <ProductsList data={products} />
             <div>
-                <FilterProducts />
+                <Suspense>
+                    <FilterProducts />
+                </Suspense>
             </div>
 
         </div>

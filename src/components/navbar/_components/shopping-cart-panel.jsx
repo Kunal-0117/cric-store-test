@@ -47,7 +47,9 @@ export function ShoppingCartPanel() {
                                             Object.values(cart).map(value => (
 
                                                 <div className="grid grid-cols-4 w-full h-16 gap-4 pb-4 border-b-2" key={value.id}>
-                                                    <img src={value.thumbnail} className="h-full w-full object-cover" />
+                                                    <img
+                                                        alt={value.title}
+                                                        src={value.thumbnail} className="h-full w-full object-cover" />
                                                     <div className="col-span-2">
                                                         {value.title}
                                                     </div>

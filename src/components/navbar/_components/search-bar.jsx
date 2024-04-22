@@ -1,6 +1,6 @@
 "use client"
 import { Input } from "@/components/ui/input";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 
@@ -16,7 +16,6 @@ function debounce(func, delay = 100) {
 export function SearchBar() {
 
     const params = useSearchParams();
-    const pathname = usePathname();
     const { replace } = useRouter();
     const [value, setValue] = useState(params.get("search") ?? "");
 
@@ -27,14 +26,14 @@ export function SearchBar() {
         if (query) params.set('search', query)
         else params.delete('search');
 
-        const newPath = `${pathname}?${params.toString()}`;
+        const newPath = `/shop?${params.toString()}`;
         replace(newPath);
     }, 600), []);
 
 
     useEffect(() => {
         value && handleSearch(value)
-    }, [value]);
+    }, [value, handleSearch]);
 
 
     return (

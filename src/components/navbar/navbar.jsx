@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { ShoppingCartPanel } from "./_components/shopping-cart-panel"
 import { SearchBar } from "./_components/search-bar"
+import { Suspense } from "react"
 export function Navbar() {
 
     return (
@@ -14,7 +15,9 @@ export function Navbar() {
                     Shop
                 </Link>
 
-                <SearchBar/>
+                <Suspense>
+                    <SearchBar />
+                </Suspense>
 
                 <ShoppingCartPanel />
             </nav>

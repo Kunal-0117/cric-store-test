@@ -161,7 +161,7 @@ export const TopLoader = ({
     return () => {
       document.removeEventListener("click", handleClick)
     }
-  }, [])
+  }, [crawl, crawlSpeed, easing, initialPosition, showSpinner, speed])
 
   React.useEffect(() => {
     NProgress.done()
