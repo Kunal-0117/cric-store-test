@@ -1,14 +1,15 @@
 "use client"
 import clsx from 'clsx';
-import { useSearchParams, usePathname } from 'next/navigation';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
 export function ProductCategoriesClient({ data }) {
 
     const searchParams = useSearchParams();
     const pathname = usePathname();
+    const { replace } = useRouter();
 
     function handleClick(term) {
-        const params = new URLSearchParams(searchParams);
+        const params = new URLSearchParams();
         if (term) {
             params.set('category', term);
         } else {
@@ -17,7 +18,8 @@ export function ProductCategoriesClient({ data }) {
         const newPath = `${pathname}?${params.toString()}`;
 
         //shallow routing
-        window.history.replaceState(null, '', newPath)
+        // window.history.replaceState(null, '', newPath)
+        replace(newPath);
     }
 
     const category = searchParams.get("category");

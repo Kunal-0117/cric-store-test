@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar/navbar";
 import { StoreProvider } from "@/stores/store";
+import { TopLoader } from "@/components/ui/top-loader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <StoreProvider>
-
+          <TopLoader showSpinner={false}/>
           <Navbar />
           <main className="mt-12">
             {children}

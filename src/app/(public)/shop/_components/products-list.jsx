@@ -10,12 +10,12 @@ export function ProductsList({ data }) {
     function filterCards() {
         if (!Array.isArray(data)) return [];
 
-        const category = searchParams.get("category");
+        // const category = searchParams.get("category");
         const filter = searchParams.get("filter");
         const order = searchParams.get("order");
 
         let filteredData = data;
-        if (category) filteredData = filteredData.filter((item) => item.category === category);
+        // if (category) filteredData = filteredData.filter((item) => item.category === category);
 
         if (!filter || !order) return filteredData;
         filteredData.sort((a, b) => {
@@ -41,6 +41,7 @@ export function ProductsList({ data }) {
         const data = filterCards();
         setCards(data);
     }, [searchParams])
+
     return (
         cards?.length ? (
             <div className="col-span-4 gap-x-6 gap-y-12 grid md:grid-cols-2 lg:grid-cols-3  py-12">
