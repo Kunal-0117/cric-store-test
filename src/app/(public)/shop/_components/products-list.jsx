@@ -29,7 +29,7 @@ export function ProductsList({ data }) {
 
     }, []);
 
-    const [cards, setCards] = useState(() => filterCards());
+    const [cards, setCards] = useState(() => filterCards(data));
 
     useEffect(() => {
 
@@ -42,13 +42,10 @@ export function ProductsList({ data }) {
 
     return (
         cards?.length ? (
-            <div className="col-span-4 gap-x-6 gap-y-12 grid md:grid-cols-2 lg:grid-cols-3  py-12">
-                {
-                    cards.map((product) => (
-                        <ProductCard key={product.id} data={product} />
-                    ))
-                }
-            </div>
+            cards.map((product) => (
+                <ProductCard key={product.id} data={product} />
+            ))
+
 
         )
 

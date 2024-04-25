@@ -21,17 +21,24 @@ export default async function ShopPage({ searchParams }) {
 
     return (
 
-        <div className="grid grid-cols-6 gap-6">
-            <div className="relative h-screen">
-                <div className="overflow-y-auto w-full h-full">
-                    <ProductCategories />
+        <div className="grid grid-cols-6 h-[calc(100vh_-_3rem)]">
+
+            <div className="overflow-y-auto h-full hidden lg:block">
+                <ProductCategories />
+            </div>
+
+
+            <div className="col-span-full lg:col-span-4 py-12 w-full overflow-y-auto px-4">
+                <div className="gap-x-6 gap-y-12 grid md:grid-cols-2 lg:grid-cols-3">
+                    <Suspense>
+                        <ProductsList data={products} />
+                    </Suspense>
                 </div>
             </div>
-            <ProductsList data={products} />
-            <div>
-                <Suspense>
-                    <FilterProducts />
-                </Suspense>
+
+
+            <div className="overflow-y-auto h-full hidden lg:block">
+                <FilterProducts />
             </div>
 
         </div>

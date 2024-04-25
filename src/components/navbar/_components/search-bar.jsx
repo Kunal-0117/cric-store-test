@@ -1,38 +1,32 @@
 "use client"
 import { Input } from "@/components/ui/input";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useDebouncedCallback } from 'use-debounce';
 
-
-function debounce(func, delay = 100) {
-
-    let timerId;
-    return function (...args) {
-        clearTimeout(timerId);
-        timerId = setTimeout(func.bind(null, args), delay);
-    }
-}
 
 export function SearchBar() {
 
-    const params = useSearchParams();
+    const searchParams = useSearchParams();
     const { replace } = useRouter();
-    const [value, setValue] = useState(params.get("search") ?? "");
+    const pathname = usePathname();
+    const [value, setValue] = useState(searchParams.get("search") ?? "");
 
 
-    const handleSearch = useCallback(debounce((query) => {
+    const handleSearch = useDebouncedCallback((term) => {
         const params = new URLSearchParams();
+        if (term) {
+            params.set('search', term);
+            replace(`/shop?${params.toString()}`);
+        } else {
+            replace(pathname);
+        }
+    }, 500)
 
-        if (query) params.set('search', query)
-        else params.delete('search');
-
-        const newPath = `/shop?${params.toString()}`;
-        replace(newPath);
-    }, 600), []);
 
 
     useEffect(() => {
-        value && handleSearch(value)
+        handleSearch(value);
     }, [value, handleSearch]);
 
 
