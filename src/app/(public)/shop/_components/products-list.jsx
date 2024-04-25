@@ -3,10 +3,13 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+
+//This component returns the filtered list of all the product items
 export function ProductsList({ data }) {
 
     const searchParams = useSearchParams();
 
+    //This function is repsonsible to filter cards
     const filterCards = useCallback((data, filter, order) => {
         if (!Array.isArray(data)) return [];
 
@@ -18,6 +21,8 @@ export function ProductsList({ data }) {
                 let res = 0;
                 if (filter === "name") res = a.title.localeCompare(b.title);
                 else if (filter === "price") res = (parseFloat)(a.price) - (parseFloat)(b.price);
+
+                //if the selected order of filter is desc, we are reversing the sort order, hence -1.
                 if (order === "desc") res *= -1;
 
                 return res;

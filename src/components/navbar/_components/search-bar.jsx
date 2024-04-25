@@ -12,7 +12,9 @@ export function SearchBar() {
     const pathname = usePathname();
     const [value, setValue] = useState(searchParams.get("search") ?? "");
 
-
+    /*
+    Debounced input search function
+    */
     const handleSearch = useDebouncedCallback((term) => {
         const params = new URLSearchParams();
         if (term) {

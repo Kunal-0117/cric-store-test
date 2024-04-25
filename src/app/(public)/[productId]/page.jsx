@@ -3,6 +3,8 @@ import { Badge } from "@/components/ui/badge";
 import { ProductImages } from "./_components/product-images";
 import { AddProductButton } from "./_components/add-product-button";
 
+
+//This function fetches the single product
 async function getSingleProduct(id) {
     return await makeRequest("/products/" + id);
 }

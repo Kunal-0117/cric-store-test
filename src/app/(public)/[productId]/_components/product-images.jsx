@@ -3,16 +3,22 @@
 import { useState } from "react";
 import clsx from "clsx";
 
+
+//This is carousel of images
 export function ProductImages({ images }) {
 
+    //current selected image in the carousel;
     const [image, setImage] = useState(images[0]);
     return (
         <div className="flex h-full w-full max-w-full flex-col gap-6">
 
+            {/* The bigger image preview */}
             <div className="rounded-xl border overflow-hidden p-1 w-full max-h-[60vh] min-h-[60vh] h-[60vh] flex">
                 <img alt="" src={image} className="object-contain block mx-auto" />
             </div>
 
+
+            {/* These are the sliding images*/}
             <div className="w-full max-w-full overflow-x-auto mt-auto py-2">
                 <div className="flex gap-8 h-28 mx-auto max-w-max">
                     {

@@ -17,8 +17,7 @@ export function ProductCategoriesClient({ data }) {
         }
         const newPath = `${pathname}?${params.toString()}`;
 
-        //shallow routing
-        // window.history.replaceState(null, '', newPath)
+        //We want to do server trip on category change since we are fetching cards from the server.
         replace(newPath);
     }
 

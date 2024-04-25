@@ -3,11 +3,15 @@
 import { cn } from "@/lib/utils";
 import { usePathname, useSearchParams } from "next/navigation";
 
+
 export function FilterProducts() {
     const searchParams = useSearchParams();
     const pathname = usePathname();
 
+
     function handleClick(filter, order) {
+        //This function sets the filters(ascending/descending order of name or price)
+
         const params = new URLSearchParams(searchParams);
 
 
@@ -19,7 +23,10 @@ export function FilterProducts() {
 
         const newPath = `${pathname}?${params.toString()}`;
 
-        //shallow routing
+        /*
+        we are doing shallow routing to persist the state in url search params but at the same
+        time preventing server trip, since we don't need to fetch anyting.
+        */
         window.history.replaceState(null, '', newPath)
     }
 
@@ -27,10 +34,7 @@ export function FilterProducts() {
     const order = searchParams.get("order");
 
     return (
-        <div className="p-4 border-l h-full">
-            <h2 className="text-xl mb-6 font-medium">Filters</h2>
-            {/* <ProductCategoriesClient data={data} /> */}
-            <div className="space-y-4 flex flex-col">
+            <div className="flex flex-col space-y-2">
 
                 <div className="font-bold">Name:</div>
 
@@ -78,7 +82,6 @@ export function FilterProducts() {
                     Clear Filters
                 </FilterButton>
             </div>
-        </div>
     )
 }
 

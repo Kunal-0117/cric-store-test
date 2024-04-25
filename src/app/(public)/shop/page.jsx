@@ -3,7 +3,21 @@ import { ProductCategories } from "./_components/product-categories/product-cate
 import { ProductsList } from "./_components/products-list";
 import { FilterProducts } from "./_components/filter-products";
 import { Suspense } from "react";
+import {
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
+} from "@/components/ui/sheet"
 
+/*
+This is the main function which is responsible for fetching all the cards from
+the api, the cards fetched depends upon the url search params, if we have a category we fetch
+the products of that category only, or if we have search parameter, the we fetch products coresponding
+to that search parameter.
+*/
 async function getProducts({ category, search }) {
     if (search) {
         return await makeRequest("/products/search?q=" + search);
@@ -23,8 +37,42 @@ export default async function ShopPage({ searchParams }) {
 
         <div className="grid grid-cols-6 h-[calc(100vh_-_3rem)]">
 
+            <div className="h-8 col-span-full lg:hidden flex gap-6 items-center justify-center bg-secondary">
+
+
+                <Sheet>
+                    <SheetTrigger>
+                        Filters
+                    </SheetTrigger>
+                    <SheetContent>
+
+
+                        <FilterProducts />
+
+
+                    </SheetContent>
+                </Sheet>
+
+                <Sheet>
+                    <SheetTrigger>
+                        Categories
+                    </SheetTrigger>
+                    <SheetContent>
+                        
+                        <div className="h-full overflow-y-auto">
+                            <ProductCategories />
+                        </div>
+
+                    </SheetContent>
+                </Sheet>
+            </div>
+
             <div className="overflow-y-auto h-full hidden lg:block">
-                <ProductCategories />
+
+                <div className="p-4 border-r">
+                    <h2 className="text-xl mb-6 font-medium">Categories</h2>
+                    <ProductCategories />
+                </div>
             </div>
 
 
@@ -38,7 +86,10 @@ export default async function ShopPage({ searchParams }) {
 
 
             <div className="overflow-y-auto h-full hidden lg:block">
-                <FilterProducts />
+                <div className="p-4 border-l h-full">
+                    <h2 className="text-xl mb-6 font-medium">Filters</h2>
+                    <FilterProducts />
+                </div>
             </div>
 
         </div>

@@ -39,41 +39,55 @@ export function ShoppingCartPanel() {
                     {
                         count ?
 
-                            <SheetHeader>
-                                <SheetTitle>My Cart</SheetTitle>
-                                <div className="flex flex-col gap-4 h-full">
+                            <>
+                                <SheetHeader>
+                                    <SheetTitle>My Cart</SheetTitle>
+                                </SheetHeader>
+
+                                <div className="flex flex-col gap-4 h-full pb-4">
+
                                     <div className="flex flex-col gap-3">
                                         {
                                             Object.values(cart).map(value => (
 
-                                                <div className="grid grid-cols-4 w-full h-16 gap-4 pb-4 border-b-2" key={value.id}>
+                                                <div className="grid grid-cols-4 w-full gap-4 border-b-2 pb-2" key={value.id}>
                                                     <img
                                                         alt={value.title}
-                                                        src={value.thumbnail} className="h-full w-full object-cover" />
+                                                        src={value.thumbnail} className=" w-full object-cover h-16" />
+
                                                     <div className="col-span-2">
                                                         {value.title}
                                                     </div>
+
                                                     <div className="">
                                                         <div>${value.price}</div>
-                                                        <div className="flex gap-1">
-                                                            <Button
-                                                                onClick={incrementItemAction.bind(null, value.id)}
-                                                                size="icon"
-                                                                className="py-1"
-                                                            >
-                                                                +
-                                                            </Button>
 
-                                                            {value.count}
+                                                        <div className="flex gap-1 items-center">
+
                                                             <Button
                                                                 size="icon"
-                                                                className="py-1"
+                                                                className="rounded-full h-8 w-8"
                                                                 variant="destructive"
                                                                 onClick={decrementItemAction.bind(null, value.id)}
                                                             >
                                                                 -
                                                             </Button>
+
+
+                                                            <span>{value.count}</span>
+
+                                                            <Button
+                                                                onClick={incrementItemAction.bind(null, value.id)}
+                                                                size="icon"
+                                                                className="rounded-full h-8 w-8"
+                                                            >
+                                                                +
+                                                            </Button>
+
+
+
                                                         </div>
+
                                                     </div>
                                                 </div>
                                             ))
@@ -84,7 +98,8 @@ export function ShoppingCartPanel() {
                                         Place Order (${getTotal()})
                                     </Button>
                                 </div>
-                            </SheetHeader>
+                            </>
+
                             :
                             <SheetHeader>
                                 <SheetTitle>My Cart</SheetTitle>

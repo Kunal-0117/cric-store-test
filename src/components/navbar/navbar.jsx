@@ -7,7 +7,7 @@ export function Navbar() {
     return (
         <header>
             <nav className="px-4 h-12 flex items-center fixed top-0 bg-background shadow-md w-full gap-6 z-20">
-                <Link href="/" className="text-2xl font-bold hover:underline">
+                <Link href="/" className="text-lg md:text-xl font-bold hover:underline">
                     Cric Store
                 </Link>
 
