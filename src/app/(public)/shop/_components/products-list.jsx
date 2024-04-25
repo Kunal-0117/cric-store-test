@@ -2,45 +2,43 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 export function ProductsList({ data }) {
 
     const searchParams = useSearchParams();
 
-    function filterCards() {
+    const filterCards = useCallback((data, filter, order) => {
         if (!Array.isArray(data)) return [];
 
-        // const category = searchParams.get("category");
-        const filter = searchParams.get("filter");
-        const order = searchParams.get("order");
+        let filteredData = [...data];
 
-        let filteredData = data;
-        // if (category) filteredData = filteredData.filter((item) => item.category === category);
+        if (filter && order) {
+            filteredData.sort((a, b) => {
 
-        if (!filter || !order) return filteredData;
-        filteredData.sort((a, b) => {
+                let res = 0;
+                if (filter === "name") res = a.title.localeCompare(b.title);
+                else if (filter === "price") res = (parseFloat)(a.price) - (parseFloat)(b.price);
+                if (order === "desc") res *= -1;
 
-            let res = 0;
-            if (filter === "name") res = a.title.localeCompare(b.title);
-            else if (filter === "price") res = (parseFloat)(a.price) - (parseFloat)(b.price);
-            if (order === "desc") res *= -1;
+                return res;
 
-            return res;
+            })
+        }
 
-        })
+        return filteredData;
 
-        return [...filteredData];
+    }, []);
 
-    }
-
-    const [cards, setCards] = useState(() => {
-        return filterCards();
-    });
+    const [cards, setCards] = useState(() => filterCards());
 
     useEffect(() => {
-        const data = filterCards();
-        setCards(data);
-    }, [searchParams])
+
+        const filter = searchParams.get("filter");
+        const order = searchParams.get("order");
+        const result = filterCards(data, filter, order);
+        setCards(result);
+
+    }, [searchParams, data, filterCards])
 
     return (
         cards?.length ? (
