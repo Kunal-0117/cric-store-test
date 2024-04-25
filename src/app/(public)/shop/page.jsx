@@ -6,11 +6,9 @@ import { Suspense } from "react";
 import {
     Sheet,
     SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
+import { Pagination } from "./_components/pagination";
 
 /*
 This is the main function which is responsible for fetching all the cards from
@@ -18,20 +16,27 @@ the api, the cards fetched depends upon the url search params, if we have a cate
 the products of that category only, or if we have search parameter, the we fetch products coresponding
 to that search parameter.
 */
-async function getProducts({ category, search }) {
+async function getProducts({ category, search, page }) {
+
+    const limit = 30;
+    const skip = page ? (page - 1) * limit : 0;
+    const searchParams = `limit=${limit}&skip=${skip}`
     if (search) {
-        return await makeRequest("/products/search?q=" + search);
+        return await makeRequest(`/products/search?q=${search}&${searchParams}`);
     }
     if (category) {
-        return await makeRequest("/products/category/" + category);
+        return await makeRequest(`/products/category/${category}?${searchParams}`);
     }
-    return await makeRequest("/products/");
+    return await makeRequest(`/products?${searchParams}`);
 }
 
 export default async function ShopPage({ searchParams }) {
 
     const data = await getProducts({ ...searchParams });
     const { products } = data;
+    delete data.products;
+    const hasMore = (data.limit * (data.skip + 1)) < data.total;
+    const hasPrev = data.skip !== 0;
 
     return (
 
@@ -58,7 +63,7 @@ export default async function ShopPage({ searchParams }) {
                         Categories
                     </SheetTrigger>
                     <SheetContent>
-                        
+
                         <div className="h-full overflow-y-auto">
                             <ProductCategories />
                         </div>
@@ -81,6 +86,12 @@ export default async function ShopPage({ searchParams }) {
                     <Suspense>
                         <ProductsList data={products} />
                     </Suspense>
+
+                    <Pagination
+                        hasMore={hasMore}
+                        hasPrev={hasPrev}
+                    />
+
                 </div>
             </div>
 
