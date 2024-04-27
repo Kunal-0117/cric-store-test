@@ -1,5 +1,6 @@
 "use client"
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -65,8 +66,9 @@ export function ProductsList({ data }) {
 function ProductCard({ data }) {
     return (
         <div className="rounded-xl flex flex-col shadow-md overflow-hidden max-w-xs mx-auto">
-            <div className="w-full h-48">
-                <img
+            <div className="w-full h-48 relative">
+                <Image
+                    fill
                     alt={data.title}
                     className="w-full h-full object-cover"
                     src={data.thumbnail}

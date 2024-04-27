@@ -10,6 +10,7 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet"
 import { useStore } from "@/stores/store";
+import Image from "next/image";
 
 
 
@@ -51,9 +52,12 @@ export function ShoppingCartPanel() {
                                             Object.values(cart).map(value => (
 
                                                 <div className="grid grid-cols-4 w-full gap-4 border-b-2 pb-2" key={value.id}>
-                                                    <img
-                                                        alt={value.title}
-                                                        src={value.thumbnail} className=" w-full object-cover h-16" />
+                                                    <div className="h-16 w-full relative">
+                                                        <Image
+                                                        fill
+                                                            alt={value.title}
+                                                            src={value.thumbnail} className="object-contain" />
+                                                    </div>
 
                                                     <div className="col-span-2">
                                                         {value.title}
