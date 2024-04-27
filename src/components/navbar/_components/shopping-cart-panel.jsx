@@ -55,6 +55,7 @@ export function ShoppingCartPanel() {
                                                     <div className="h-16 w-full relative">
                                                         <Image
                                                         fill
+                                                        sizes="100px"
                                                             alt={value.title}
                                                             src={value.thumbnail} className="object-contain" />
                                                     </div>

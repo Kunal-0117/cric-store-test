@@ -72,6 +72,7 @@ function ProductCard({ data }) {
                     alt={data.title}
                     className="w-full h-full object-cover"
                     src={data.thumbnail}
+                    sizes="(min-width: 1024px) 20vw, (min-width: 768px) 40vw, 320px"
                 />
             </div>
 

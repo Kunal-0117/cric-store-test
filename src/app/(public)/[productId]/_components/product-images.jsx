@@ -20,6 +20,7 @@ export function ProductImages({ images }) {
                     alt=""
                     src={image}
                     className="object-contain block mx-auto"
+                    sizes="(min-width: 1024px) 66vw, 100vw"
                 />
             </div>
 
@@ -35,6 +36,7 @@ export function ProductImages({ images }) {
                                     alt=""
                                     className="object-contain block mx-auto"
                                     src={src}
+                                    sizes="112px"
                                 />
                             </div>
                         ))
